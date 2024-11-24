@@ -47,6 +47,7 @@ func (c *lsCLI) ls(fname string) {
 	if err != nil {
 		c.eprintln("ls", err)
 		c.exitCode = 1
+		return
 	}
 	if c.dflag || !stat.IsDir() {
 		c.printFile(fs.FileInfoToDirEntry(stat))
@@ -57,6 +58,7 @@ func (c *lsCLI) ls(fname string) {
 	if err != nil {
 		c.eprintln("ls", err)
 		c.exitCode = 1
+		return
 	}
 
 	for _, e := range es {
