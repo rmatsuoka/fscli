@@ -58,8 +58,8 @@ func (c *walkCLI) printFile(path string, e fs.DirEntry) {
 	if c.lflag {
 		info, err := e.Info()
 		if err != nil {
-			c.eprintln("ls", err)
-			c.exitCode = 1
+			c.eprintln("walk", err)
+			return
 		}
 		fmt.Fprintln(c.stdout(), formatFileInfo(info, path))
 		return

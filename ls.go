@@ -68,7 +68,7 @@ func (c *lsCLI) printFile(e fs.DirEntry) {
 		info, err := e.Info()
 		if err != nil {
 			c.eprintln("ls", err)
-			c.exitCode = 1
+			return
 		}
 		fmt.Fprintln(c.stdout(), formatFileInfo(info, ""))
 		return
