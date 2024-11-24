@@ -1,9 +1,10 @@
 package fscli
 
 import (
-	"bytes"
 	"cmp"
 	"fmt"
+	"io"
+	"strings"
 )
 
 func (c *CLI) prefix(command string) string {
@@ -11,21 +12,25 @@ func (c *CLI) prefix(command string) string {
 }
 
 func (c *CLI) eprintln(command string, a ...any) {
-	b := new(bytes.Buffer)
+	b := new(strings.Builder)
 	b.WriteString(c.Name)
 	b.WriteString(": ")
-	b.WriteString(command)
-	b.WriteString(": ")
+	if command != "" {
+		b.WriteString(command)
+		b.WriteString(": ")
+	}
 	fmt.Fprintln(b, a...)
-	c.stderr().Write(b.Bytes())
+	io.WriteString(c.stderr(), b.String())
 }
 
 func (c *CLI) eprintf(command string, format string, a ...any) {
-	b := new(bytes.Buffer)
+	b := new(strings.Builder)
 	b.WriteString(c.Name)
 	b.WriteString(": ")
-	b.WriteString(command)
-	b.WriteString(": ")
+	if command != "" {
+		b.WriteString(command)
+		b.WriteString(": ")
+	}
 	fmt.Fprintf(b, format, a...)
-	c.stderr().Write(b.Bytes())
+	io.WriteString(c.stderr(), b.String())
 }
