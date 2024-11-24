@@ -50,6 +50,7 @@ func (c *lsCLI) ls(fname string) {
 	}
 	if c.dflag || !stat.IsDir() {
 		c.printFile(fs.FileInfoToDirEntry(stat))
+		return
 	}
 
 	es, err := fs.ReadDir(c.FS, fname)
